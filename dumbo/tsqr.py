@@ -162,10 +162,6 @@ def starter(prog):
         return "'mat' not specified'"
         
     prog.addopt('memlimit','4g')
-    
-    nonumpy = prog.delopt('use_system_numpy')
-    if not nonumpy:
-        prog.addopt('libegg','numpy')
         
     prog.addopt('file',os.path.join(mypath,'util.py'))
     

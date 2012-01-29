@@ -52,7 +52,7 @@ def setup_left_svd(backend, fs, opts):
     output = dumbo.util.getopt(opts,'output',delete=False)[0]
     
     # here, the input is the matrix name
-    lastiter = output + "_pre%s"%(iter)
+    lastiter = output + "_pre%s/part*"%(iter)
     
     localR = gopts.getstrkey('tsqr_R_filename')
     
@@ -138,6 +138,8 @@ class ComputeSVDLeft(dumbo.backends.common.MapRedBase):
     
     def __call__(self,data):
         # startup
+        print >> sys.stderr, "cwd: ", os.getcwd()
+        print >> sys.stderr, "Rfilename: ", self.Rfilename
         R = numpy.loadtxt(self.Rfilename)
         U,S,Vt = numpy.linalg.svd(R)
         #self.Ut = U.transpose()
@@ -211,13 +213,6 @@ def starter(prog):
         return "'mat' not specified'"
         
     prog.addopt('memlimit','4g')
-    
-    nonumpy = prog.delopt('use_system_numpy')
-    pprint.pprint(nonumpy)
-    if nonumpy is not None:
-        pass
-    else:
-        prog.addopt('libegg','numpy')
         
     prog.addopt('file',os.path.join(mypath,'util.py'))
     prog.addopt('file',os.path.join(mypath,'tsqr.py'))
