@@ -2,6 +2,10 @@
 
 """
 Convert a set of "column" mseq files into a matrix mseq.
+
+Assuming there are files in the HDFS col1.mseq, col2.mseq, ...
+Example usage:
+dumbo start columns2mseq.py -input col*.mseq -output matrix.mseq
 """
 
 import sys
