@@ -192,6 +192,7 @@ def runner(job):
     Rfile = gopts.getstrkey('tsqr_R_filename')
         
     job.additer(mapper=ComputeSVDLeft(Rfile,blocksize=blocksize),
+        reducer="org.apache.hadoop.mapred.lib.IdentityReducer",
         input=-1,
         premapper=setup_left_svd,
         opts=[('numreducetasks',str(finalreduce))])
